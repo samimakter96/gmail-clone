@@ -21,7 +21,7 @@ const Navbar = () => {
           />
         </div>
       </div>
-      <div className="md:block hidden w-[50%] mr-60">
+      <div className="md:block hidden w-[50%] mr-80">
         <div className="flex items-center bg-[#eaf1fb] px-2 py-3 rounded-full">
           <IoIosSearch size={"24px"} className="text-gray-700" />
           <input
