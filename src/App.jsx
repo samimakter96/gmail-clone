@@ -6,6 +6,7 @@ import Body from "./components/Body";
 import Inbox from "./components/Inbox";
 import Mail from "./components/Mail";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ComposeMail from "./components/ComposeMail";
 
 // const router = createBrowserRouter([
 //   {
@@ -35,6 +36,9 @@ const App = () => {
             <Route path="/mail/:id" element={<Mail />} />
           </Route>
         </Routes>
+          <div className="absolute w-[30%] bottom-0 right-20 z-10">
+            <ComposeMail />
+          </div>
       </div>
     </Router>
   );
