@@ -6,8 +6,10 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { PiDotsNineBold } from "react-icons/pi";
 import Avatar from "react-avatar";
 import samim_pic from '../../assets/samim-profile-pic.jpeg'
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate()
   return (
     <div className="flex items-center justify-between mx-3 h-16">
       <div className="flex items-center gap-10">
@@ -16,6 +18,7 @@ const Navbar = () => {
             <RxHamburgerMenu size={"20px"} />
           </div>
           <img
+            onClick={() => navigate('/')}
             src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png"
             alt="gmail-logo"
           />
