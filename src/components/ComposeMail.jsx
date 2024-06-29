@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { setOpen } from "../redux/appSlice";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 const ComposeMail = () => {
   const [fromData, setFromData] = useState({
@@ -17,10 +19,19 @@ const ComposeMail = () => {
     setFromData({ ...fromData, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log(fromData);
+    await addDoc(collection(db, "emails"), {
+      to: fromData.to,
+      subject: fromData.subject,
+      message: fromData.message,
+      createdAt: serverTimestamp(),
+    });
+    // close the compose mail modal after submitting the form
+    dispatch(setOpen(false));
+    // clear all the inputs fields
+    setFromData({ to: "", subject: "", message: "" });
   };
   return (
     <>
@@ -64,7 +75,6 @@ const ComposeMail = () => {
               className="outline-none py-1"
             />
             <button
-              onClick={() => dispatch(setOpen(false))}
               type="submit"
               className="bg-[#0b57d0] rounded-full w-fit px-4 text-white font-medium"
             >
