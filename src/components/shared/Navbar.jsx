@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GoQuestion } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { PiDotsNineBold } from "react-icons/pi";
 import Avatar from "react-avatar";
-import samim_pic from '../../assets/samim-profile-pic.jpeg'
+import samim_pic from "../../assets/samim-profile-pic.jpeg";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchText } from "../../redux/appSlice";
 
 const Navbar = () => {
-  const navigate = useNavigate()
+  const [searchInput , setSearchInput] = useState('')
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(setSearchText(searchInput))
+  }, [searchInput])
+
   return (
     <div className="flex items-center justify-between mx-3 h-16">
       <div className="flex items-center gap-10">
@@ -18,7 +27,7 @@ const Navbar = () => {
             <RxHamburgerMenu size={"20px"} />
           </div>
           <img
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png"
             alt="gmail-logo"
           />
@@ -29,6 +38,8 @@ const Navbar = () => {
           <IoIosSearch size={"24px"} className="text-gray-700" />
           <input
             type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search Mail"
             className="rounded-full w-full bg-transparent outline-none px-1"
           />
@@ -46,7 +57,7 @@ const Navbar = () => {
             <PiDotsNineBold size={"20px"} />
           </div>
           <div className="cursor-pointer">
-            <Avatar src={samim_pic} size="35" round={true}/>
+            <Avatar src={samim_pic} size="35" round={true} />
           </div>
         </div>
       </div>
