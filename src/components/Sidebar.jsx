@@ -4,7 +4,7 @@ import { IoMdStar } from "react-icons/io";
 import { LuPencil } from "react-icons/lu";
 import { MdOutlineDrafts, MdOutlineKeyboardArrowDown, MdOutlineWatchLater } from "react-icons/md";
 import { TbSend2 } from "react-icons/tb";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setOpen } from "../redux/appSlice";
 
 const sidebarItems = [
@@ -37,6 +37,7 @@ const sidebarItems = [
 const Sidebar = () => {
 
   const dispatch = useDispatch()
+  const unReadEmailCount = useSelector((state) => state.appSlice.emails.filter((email) => !email.read).length)
 
   return (
     <div className="w-[15%]">
@@ -51,7 +52,7 @@ const Sidebar = () => {
           return (
             <div key={index} className="flex items-center gap-4 pl-6 py-1 rounded-r-full hover:cursor-pointer my-2 hover:bg-gray-200">
               {item.icon}
-              <p>{item.text}</p>
+              <p>{item.text} {item.text === 'Inbox' && `(${unReadEmailCount})`}</p> 
             </div>
           );
         })}

@@ -11,7 +11,6 @@ const Login = () => {
   const signInWithGoogle = async () => {
     try {
       const response = await signInWithPopup(auth, provider);
-      console.log(response);
       dispatch(setUser({
         displayName: response.user.displayName,
         email: response.user.email,

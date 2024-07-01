@@ -24,7 +24,7 @@ const Messages = () => {
 
     // Unsubscribe from events when no longer in use || cleanup
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   // search functionality
   useEffect(() => {
@@ -40,7 +40,7 @@ const Messages = () => {
 
   return (
     <div>
-      {tempEmails && tempEmails?.map((email) => <Message email={email} />)}
+      {tempEmails && tempEmails?.map((email) => <Message key={email.id} email={email} />)}
     </div>
   );
 };

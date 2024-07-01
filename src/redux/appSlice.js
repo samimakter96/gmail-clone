@@ -25,10 +25,19 @@ const appSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    markAsRead: (state, action) => {
+      state.emails = state.emails.map((email) => {
+        if (email.id === action.payload) {
+          return { ...email, read: true };
+        }
+        return email;
+      });
+    },
+    
   },
 });
 
-export const { setOpen, setEmails, setSelectedEmail, setSearchText, setUser } =
+export const { setOpen, setEmails, setSelectedEmail, setSearchText, setUser, markAsRead } =
   appSlice.actions;
 
 export default appSlice.reducer;
