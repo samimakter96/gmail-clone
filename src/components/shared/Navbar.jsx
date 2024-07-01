@@ -5,19 +5,34 @@ import { GoQuestion } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { PiDotsNineBold } from "react-icons/pi";
 import Avatar from "react-avatar";
-import samim_pic from "../../assets/samim-profile-pic.jpeg";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setSearchText } from "../../redux/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchText, setUser } from "../../redux/appSlice";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 const Navbar = () => {
-  const [searchInput , setSearchInput] = useState('')
-  const dispatch = useDispatch()
+  const [searchInput, setSearchInput] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.appSlice.user)
   const navigate = useNavigate();
 
+  const signOutHandler = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(setUser(null));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
-    dispatch(setSearchText(searchInput))
-  }, [searchInput])
+    dispatch(setSearchText(searchInput));
+  }, [searchInput]);
 
   return (
     <div className="flex items-center justify-between mx-3 h-16">
@@ -56,8 +71,28 @@ const Navbar = () => {
           <div className="p-3 rounded-full hover:bg-gray-100 cursor-pointer">
             <PiDotsNineBold size={"20px"} />
           </div>
-          <div className="cursor-pointer">
-            <Avatar src={samim_pic} size="35" round={true} />
+          <div className="relative cursor-pointer">
+            <Avatar
+              onClick={() => setToggle(!toggle)}
+              src={user.photoURL}
+              size="35"
+              round={true}
+            />
+            <AnimatePresence>
+              {toggle && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.1 }}
+                  className="absolute right-2 z-20 shadow-lg bg-white rounded-md"
+                >
+                  <p onClick={signOutHandler} className="p-2 underline">
+                    Logout
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
