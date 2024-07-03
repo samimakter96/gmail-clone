@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ComposeMail from "./components/ComposeMail";
 import Login from "./components/auth/Login";
 import { useSelector } from "react-redux";
+import Sent from "./components/Sent";
 
 const App = () => {
   
@@ -25,6 +26,7 @@ const App = () => {
               <Route exact path="/" element={<Body />}>
                 <Route path="/" element={<Inbox />} />
                 <Route path="/mail/:id" element={<Mail />} />
+                <Route path="/sent" element={<Sent />}/>
               </Route>
             </Routes>
             <div className="absolute w-[30%] bottom-0 right-20 z-10">

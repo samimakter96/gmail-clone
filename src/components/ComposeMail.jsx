@@ -71,7 +71,6 @@ const ComposeMail = () => {
               value={fromData.message}
               name="message"
               onChange={handleInputChange}
-              placeholder="Type your message here..."
               className="outline-none py-1"
             />
             <button

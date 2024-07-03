@@ -8,6 +8,7 @@ const appSlice = createSlice({
     selectedEmail: null,
     searchText: "",
     user: null,
+    selectedFolder: "Inbox"
   },
   reducers: {
     setOpen: (state, action) => {
@@ -33,11 +34,14 @@ const appSlice = createSlice({
         return email;
       });
     },
+    setSelectedFolder: (state, action) => {
+      state.selectedFolder = action.payload;
+    }
     
   },
 });
 
-export const { setOpen, setEmails, setSelectedEmail, setSearchText, setUser, markAsRead } =
+export const { setOpen, setEmails, setSelectedEmail, setSearchText, setUser, markAsRead, setSelectedFolder } =
   appSlice.actions;
 
 export default appSlice.reducer;
